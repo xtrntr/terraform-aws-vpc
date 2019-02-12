@@ -266,7 +266,7 @@ resource "aws_subnet" "elasticache" {
 resource "aws_elasticache_subnet_group" "elasticache" {
   count = "${var.create_vpc && length(var.elasticache_subnets) > 0 && var.create_elasticache_subnet_group ? 1 : 0}"
 
-  name        = "${var.name}"
+  name        = "${replace(var.name, " ", "-")}"
   description = "ElastiCache subnet group for ${var.name}"
   subnet_ids  = ["${aws_subnet.elasticache.*.id}"]
 }
